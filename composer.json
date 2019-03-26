@@ -1,0 +1,24 @@
+{
+    "name": "jamesRUS52/phpfrm",
+    "description": "PHP framework",
+    "keywords": ["php", "framework", "MVC"],
+    "license" : "BSD-3-Clause",
+    "authors" : [
+        {
+            "name": "Anton V. Davydov",
+            "email": "james.rus52@gmail.com",
+            "homepage": "http://www.jamesr52.ru"
+        }
+    ],
+    "autoload" : {
+        "psr-4" : {
+            "phpfrm\\" : "src"
+        }
+    },
+    "require" : {
+	"php": "^5.6 || ^7.0",
+        "vlucas/phpdotenv":"*",
+        "monolog/monolog":"*",
+        "swiftmailer/swiftmailer": "^5.3|^6.0"
+    }
+}
