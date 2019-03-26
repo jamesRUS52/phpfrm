@@ -1,12 +1,11 @@
 {
     "autoload" : {
         "psr-4" : {
-            "OTR\\Billing\\": "OTR/Billing"
+            "app\\": "app"
         }
     },
     "require" : {
         "james.rus52/phpfrm": "dev-master",
         "phpmailer/phpmailer": "~6.0",
-        "lesstif/php-jira-rest-client": "^1.19"
     }
 }
