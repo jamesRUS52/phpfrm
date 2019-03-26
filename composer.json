@@ -20,5 +20,10 @@
         "vlucas/phpdotenv":"*",
         "monolog/monolog":"*",
         "swiftmailer/swiftmailer": "^5.3|^6.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
