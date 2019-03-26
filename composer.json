@@ -12,7 +12,7 @@
     ],
     "autoload" : {
         "psr-4" : {
-            "phpfrm\\" : "src"
+            "jamesRUS52\\phpfrm\\" : "src"
         }
     },
     "require" : {
