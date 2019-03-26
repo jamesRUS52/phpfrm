@@ -22,10 +22,8 @@
         "swiftmailer/swiftmailer": "^5.3|^6.0"
     },
     "scripts": {
-	{
-	    "post-create-project-cmd": [
-	            "cp -prf project ../../"
-	        ]
-    	}
+         "post-create-project-cmd": [
+            "cp -prf project ../../"
+          ]
     }
 }
