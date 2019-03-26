@@ -2,7 +2,7 @@
     "name": "james.rus52/phpfrm",
     "description": "PHP framework",
     "keywords": ["php", "framework", "MVC"],
-    "license" : "BSD-3-Clause",
+    "license" : "MIT",
     "authors" : [
         {
             "name": "Anton V. Davydov",
