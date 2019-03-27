@@ -32,19 +32,21 @@ class User {
     private $roles = [];
     public $lastPage;
     private $auth = false;
+    public $id;
 
     public function isAuth()
     {
         return $this->auth;
     }
     
-    public function setUser($login,$name='',$email='',$roles=[])
+    public function setUser($login,$name='',$email='',$roles=[],$id=FALSE)
     {
         $this->login = $login;
         $this->name = $name;
         $this->email = $email;
         $this->roles = $roles;
         $this->auth = TRUE;
+        $this->id = $id;
         $_SESSION['user'] = $this;
     }
     
