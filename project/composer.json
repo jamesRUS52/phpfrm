@@ -6,6 +6,6 @@
     },
     "require" : {
         "james.rus52/phpfrm": "dev-master",
-        "phpmailer/phpmailer": "~6.0",
+        "phpmailer/phpmailer": "~6.0"
     }
 }
