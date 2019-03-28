@@ -104,7 +104,14 @@ class ErrorHandler {
         
         if ($response==404 && !DEBUG)
         {
-            require WWW.'/errors/404.php';
+            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            {
+                print "Page not found";
+            }
+            else
+            {
+                require WWW.'/errors/404.php';
+            }
             die();
         }
         if (DEBUG)
@@ -113,8 +120,17 @@ class ErrorHandler {
         }
         else
         {
-            require WWW.'/errors/prod.php';
+            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            {
+                print "Internal server error";
+            }
+            else
+            {
+                require WWW.'/errors/500.php';
+            }
+            
         }
+
         die();
         exit();
     }
