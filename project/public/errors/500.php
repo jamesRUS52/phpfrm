@@ -1,13 +1,8 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>error 404 for Website Template | Home :: w3layouts</title>
+<title>error 500</title>
+<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link href='//fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
 <style type="text/css">
@@ -176,9 +171,5 @@ body{
 	      </div>
         </div>
 	</div>
-	
-<!--	<div class="footer">
-	 &copy 2012 error 404 . All Rights Reserved | Design by<a href="http://w3layouts.com">W3layouts</a>
-	</div>-->
 	
 </body>
