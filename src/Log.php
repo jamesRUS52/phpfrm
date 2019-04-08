@@ -58,7 +58,15 @@ class Log {
                     // Now add some handlers
                     $logger->pushHandler(new StreamHandler(LOGS.'/'.$log['file'], $loglevel));
                     $logger->pushProcessor(function ($record) {
-                        $record['extra']['user'] = User::getInstance();
+                        $user_vars = [];
+                        foreach (get_object_vars(\jamesRUS52\phpfrm\User::getInstance()) as $prop => $val)
+                            $user_vars[]=$prop.": ".$val;
+                        $roles = [];
+                        foreach (\jamesRUS52\phpfrm\User::getInstance()->getRoles() as $role => $is)
+                            $roles[] = $role."=".($is ? "True": "False");
+                        $user_vars[] = "Roles: ".implode(",", $roles);
+                        $user_vars[] = "Auth: ".(\jamesRUS52\phpfrm\User::getInstance()->isAuth()?"True":"False");
+                        $record['extra']['user'] = implode("; ", $user_vars);
 
                         $server = isset($_SERVER['SERVER_NAME']) ? "Server: {$_SERVER['SERVER_NAME']}; ":"";
                         $URL = isset($_SERVER['REQUEST_URI']) ? "URL: {$_SERVER['REQUEST_URI']}; ":"";
@@ -90,7 +98,15 @@ class Log {
 
                     $logger->pushHandler(new \Monolog\Handler\SwiftMailerHandler($mailer,$message,$loglevel,TRUE));
                     $logger->pushProcessor(function ($record) {
-                        $record['extra']['user'] = User::getInstance();
+                        $user_vars = [];
+                        foreach (get_object_vars(\jamesRUS52\phpfrm\User::getInstance()) as $prop => $val)
+                            $user_vars[]=$prop.": ".$val;
+                        $roles = [];
+                        foreach (\jamesRUS52\phpfrm\User::getInstance()->getRoles() as $role => $is)
+                            $roles[] = $role."=".($is ? "True": "False");
+                        $user_vars[] = "Roles: ".implode(",", $roles);
+                        $user_vars[] = "Auth: ".(\jamesRUS52\phpfrm\User::getInstance()->isAuth()?"True":"False");
+                        $record['extra']['user'] = implode("; ", $user_vars);
                         
                         $server = isset($_SERVER['SERVER_NAME']) ? "Server: {$_SERVER['SERVER_NAME']}; ":"";
                         $URL = isset($_SERVER['REQUEST_URI']) ? "URL: {$_SERVER['REQUEST_URI']}; ":"";
