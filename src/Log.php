@@ -57,6 +57,12 @@ class Log {
                 {
                     // Now add some handlers
                     $logger->pushHandler(new StreamHandler(LOGS.'/'.$log['file'], $loglevel));
+                    $logger->pushProcessor(function ($record) {
+                        $record['extra']['user'] = User::getInstance();
+                        $record['extra']['web'] = "Server:{$_SERVER['SERVER_NAME']}; URL: {$_SERVER['REQUEST_URI']}; Method: {$_SERVER['REQUEST_METHOD']}; IP: {$_SERVER['REMOTE_ADDR']}; Referrer: {$_SERVER['HTTP_REFERER']}; Agent: {$_SERVER['HTTP_USER_AGENT']}; Params: {$_SERVER['QUERY_STRING']};";
+                        return $record;
+                    });
+
                 }
                 else if ($log['logger']=="email")
                 {
@@ -74,6 +80,11 @@ class Log {
                                 ->setBody('Here is the message itself. It will be replaced');
 
                     $logger->pushHandler(new \Monolog\Handler\SwiftMailerHandler($mailer,$message,$loglevel,TRUE));
+                    $logger->pushProcessor(function ($record) {
+                        $record['extra']['user'] = User::getInstance();
+                        $record['extra']['web'] = "Server:{$_SERVER['SERVER_NAME']}; URL: {$_SERVER['REQUEST_URI']}; Method: {$_SERVER['REQUEST_METHOD']}; IP: {$_SERVER['REMOTE_ADDR']}; Referrer: {$_SERVER['HTTP_REFERER']}; Agent: {$_SERVER['HTTP_USER_AGENT']}; Params: {$_SERVER['QUERY_STRING']};";
+                        return $record;
+                    });
                 }
             }
             
