@@ -59,7 +59,16 @@ class Log {
                     $logger->pushHandler(new StreamHandler(LOGS.'/'.$log['file'], $loglevel));
                     $logger->pushProcessor(function ($record) {
                         $record['extra']['user'] = User::getInstance();
-                        $record['extra']['web'] = "Server:{$_SERVER['SERVER_NAME']}; URL: {$_SERVER['REQUEST_URI']}; Method: {$_SERVER['REQUEST_METHOD']}; IP: {$_SERVER['REMOTE_ADDR']}; Referrer: {$_SERVER['HTTP_REFERER']}; Agent: {$_SERVER['HTTP_USER_AGENT']}; Params: {$_SERVER['QUERY_STRING']};";
+
+                        $server = isset($_SERVER['SERVER_NAME']) ? "Server: {$_SERVER['SERVER_NAME']}; ":"";
+                        $URL = isset($_SERVER['REQUEST_URI']) ? "URL: {$_SERVER['REQUEST_URI']}; ":"";
+                        $Method = isset($_SERVER['REQUEST_METHOD']) ? "Method: {$_SERVER['REQUEST_METHOD']}; ":"";
+                        $IP = isset($_SERVER['REMOTE_ADDR']) ? "IP: {$_SERVER['REMOTE_ADDR']}; ":"";
+                        $Referrer = isset($_SERVER['HTTP_REFERER']) ? "Referrer: {$_SERVER['HTTP_REFERER']}; ":"";
+                        $Agent = isset($_SERVER['HTTP_USER_AGENT']) ? "Agent: {$_SERVER['HTTP_USER_AGENT']}; ":"";
+                        $Params = isset($_SERVER['QUERY_STRING']) ? "Params: {$_SERVER['QUERY_STRING']}; ":"";
+                        $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$Params;
+                        
                         return $record;
                     });
 
@@ -82,7 +91,15 @@ class Log {
                     $logger->pushHandler(new \Monolog\Handler\SwiftMailerHandler($mailer,$message,$loglevel,TRUE));
                     $logger->pushProcessor(function ($record) {
                         $record['extra']['user'] = User::getInstance();
-                        $record['extra']['web'] = "Server:{$_SERVER['SERVER_NAME']}; URL: {$_SERVER['REQUEST_URI']}; Method: {$_SERVER['REQUEST_METHOD']}; IP: {$_SERVER['REMOTE_ADDR']}; Referrer: {$_SERVER['HTTP_REFERER']}; Agent: {$_SERVER['HTTP_USER_AGENT']}; Params: {$_SERVER['QUERY_STRING']};";
+                        
+                        $server = isset($_SERVER['SERVER_NAME']) ? "Server: {$_SERVER['SERVER_NAME']}; ":"";
+                        $URL = isset($_SERVER['REQUEST_URI']) ? "URL: {$_SERVER['REQUEST_URI']}; ":"";
+                        $Method = isset($_SERVER['REQUEST_METHOD']) ? "Method: {$_SERVER['REQUEST_METHOD']}; ":"";
+                        $IP = isset($_SERVER['REMOTE_ADDR']) ? "IP: {$_SERVER['REMOTE_ADDR']}; ":"";
+                        $Referrer = isset($_SERVER['HTTP_REFERER']) ? "Referrer: {$_SERVER['HTTP_REFERER']}; ":"";
+                        $Agent = isset($_SERVER['HTTP_USER_AGENT']) ? "Agent: {$_SERVER['HTTP_USER_AGENT']}; ":"";
+                        $Params = isset($_SERVER['QUERY_STRING']) ? "Params: {$_SERVER['QUERY_STRING']}; ":"";
+                        $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$Params;
                         return $record;
                     });
                 }
