@@ -35,8 +35,11 @@ class ErrorHandler {
         else
             $log->error($e->getMessage(), array("File"=>$e->getFile(),"Line"=>$e->getLine(),"Code"=>$e->getCode(),"Trace"=>$e->getTraceAsString()));
 
-        if ($e->getCode() == 404 && $e instanceof Exception)
-            $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),404);
+        if ($e instanceof Exception)
+        {
+            if ($e->getCode() >= 400 && $e->getCode() < 600)
+                $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),$e->getCode());
+        }
         else
             $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),500);
 
@@ -110,7 +113,10 @@ class ErrorHandler {
             }
             else
             {
-                require WWW.'/errors/404.php';
+                if (file_exists(WWW.'/errors/404.php'))
+                    require WWW.'/errors/404.php';
+                else
+                    print "HTTP CODE 404: Page not found";
             }
             die();
         }
@@ -122,11 +128,22 @@ class ErrorHandler {
         {
             if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
             {
-                print "Internal server error";
+                if ($response>=400 && $response<500)
+                    print "HTTP CODE ".$response.": Client error";
+                else if ($response>=500 && $response<600)
+                    print "HTTP CODE ".$response.": Internal server error";
             }
             else
             {
-                require WWW.'/errors/500.php';
+                if (file_exists(WWW.'/errors/'.$response.'.php'))
+                    require WWW.'/errors/'.$response.'.php';
+                else
+                {
+                    if ($response>=400 && $response<500)
+                        print "HTTP CODE ".$response.": Client error";
+                    else if ($response>=500 && $response<600)
+                        print "HTTP CODE ".$response.": Internal server error";
+                }
             }
             
         }
