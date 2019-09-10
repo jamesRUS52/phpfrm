@@ -33,7 +33,12 @@ class ErrorHandler {
             $logcore->error($e->getMessage(), array("File"=>$e->getFile(),"Line"=>$e->getLine(),"Code"=>$e->getCode(),"Trace"=>$e->getTraceAsString()));
         }
         else
-            $log->error($e->getMessage(), array("File"=>$e->getFile(),"Line"=>$e->getLine(),"Code"=>$e->getCode(),"Trace"=>$e->getTraceAsString()));
+        {
+            if ($e->getCode() >= 400 && $e->getCode() < 500)
+                $log->notice($e->getMessage(), array("File"=>$e->getFile(),"Line"=>$e->getLine(),"Code"=>$e->getCode(),"Trace"=>$e->getTraceAsString()));
+            else
+                $log->error($e->getMessage(), array("File"=>$e->getFile(),"Line"=>$e->getLine(),"Code"=>$e->getCode(),"Trace"=>$e->getTraceAsString()));
+        }
 
         if ($e instanceof Exception)
         {
