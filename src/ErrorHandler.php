@@ -15,6 +15,7 @@ namespace jamesRUS52\phpfrm;
  */
 class ErrorHandler {
     //put your code here
+    private $error_shown = false;
     public function __construct() {
         if (DEBUG)
             error_reporting (-1);
@@ -25,7 +26,6 @@ class ErrorHandler {
     }
     public function exceptionHandler($e)
     {
-        
         $log = Log::getInstance();
         if ($e instanceof Exception)
         {
@@ -37,17 +37,20 @@ class ErrorHandler {
 
         if ($e instanceof Exception)
         {
-            if ($e->getCode() >= 400 && $e->getCode() < 600)
-                $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),$e->getCode());
+            $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),$e->getCode());
         }
         else
-            $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),500);
+        {
+            if ($e->getCode() >= 400 && $e->getCode() < 600)
+                $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),$e->getCode());
+            else
+                $this->displayError($e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine(),500);
+        }
 
     }
     
     public function fatalHandler()
     {
-        
         $errfile = "unknown file";
         $errstr  = "shutdown";
         $errno   = E_CORE_ERROR;
@@ -92,16 +95,21 @@ class ErrorHandler {
                     break;
             }
             
+            
             if ($errstr!="ldap_bind(): Unable to bind to server: Invalid credentials") // E_WARNING
                 $this->displayError($errno, $errstr, $errfile, $errline,500);
         }
-        
+        die();
+        exit();
         
     }
     
 
     protected function displayError($errno,$errstr,$errfile,$errline,$response=404)
     {
+        if ($this->error_shown !== false) // to prevent double error message exceptionHandler and fatalHandler
+            return;
+        $this->error_shown = true;
         
         http_response_code($response);
         
