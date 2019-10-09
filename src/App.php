@@ -22,6 +22,9 @@ class App {
      */
     public static $config;
     public function __construct() {
+        
+       new ErrorHandler();
+        
        session_start();
        
        if (MAINTENANCE)
@@ -54,7 +57,7 @@ class App {
 
 
         
-        new ErrorHandler();
+        
         
         Router::dispatch($query);
 
