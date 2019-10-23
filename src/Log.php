@@ -74,8 +74,15 @@ class Log {
                         $IP = isset($_SERVER['REMOTE_ADDR']) ? "IP: {$_SERVER['REMOTE_ADDR']}; ":"";
                         $Referrer = isset($_SERVER['HTTP_REFERER']) ? "Referrer: {$_SERVER['HTTP_REFERER']}; ":"";
                         $Agent = isset($_SERVER['HTTP_USER_AGENT']) ? "Agent: {$_SERVER['HTTP_USER_AGENT']}; ":"";
-                        $Params = isset($_SERVER['QUERY_STRING']) ? "Params: {$_SERVER['QUERY_STRING']}; ":"";
-                        $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$Params;
+                        $GetParams = "Get Params: [";
+                        foreach ($_GET as $k => $v)
+                            $GetParams .= $k."=>".$v."; ";
+                        $GetParams .= "]";
+                        $PostParams = "Post Params: [";
+                        foreach ($_GET as $k => $v)
+                            $PostParams .= $k."=>".$v."; ";
+                        $PostParams .= "]";
+                        $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$GetParams.$PostParams;
                         
                         return $record;
                     });
@@ -114,8 +121,15 @@ class Log {
                         $IP = isset($_SERVER['REMOTE_ADDR']) ? "IP: {$_SERVER['REMOTE_ADDR']}; ":"";
                         $Referrer = isset($_SERVER['HTTP_REFERER']) ? "Referrer: {$_SERVER['HTTP_REFERER']}; ":"";
                         $Agent = isset($_SERVER['HTTP_USER_AGENT']) ? "Agent: {$_SERVER['HTTP_USER_AGENT']}; ":"";
-                        $Params = isset($_SERVER['QUERY_STRING']) ? "Params: {$_SERVER['QUERY_STRING']}; ":"";
-                        $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$Params;
+                        $GetParams = "Get Params: [";
+                        foreach ($_GET as $k => $v)
+                            $GetParams .= $k."=>".$v."; ";
+                        $GetParams .= "]";
+                        $PostParams = "Post Params: [";
+                        foreach ($_GET as $k => $v)
+                            $PostParams .= $k."=>".$v."; ";
+                        $PostParams .= "]";
+                        $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$GetParams.$PostParams;
                         return $record;
                     });
                 }
