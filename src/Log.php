@@ -77,11 +77,11 @@ class Log {
                         $GetParams = "Get Params: [";
                         foreach ($_GET as $k => $v)
                             $GetParams .= $k."=>".$v."; ";
-                        $GetParams .= "]";
+                        $GetParams .= "]; ";
                         $PostParams = "Post Params: [";
-                        foreach ($_GET as $k => $v)
+                        foreach ($_POST as $k => $v)
                             $PostParams .= $k."=>".$v."; ";
-                        $PostParams .= "]";
+                        $PostParams .= "]; ";
                         $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$GetParams.$PostParams;
                         
                         return $record;
@@ -124,11 +124,11 @@ class Log {
                         $GetParams = "Get Params: [";
                         foreach ($_GET as $k => $v)
                             $GetParams .= $k."=>".$v."; ";
-                        $GetParams .= "]";
+                        $GetParams .= "]; ";
                         $PostParams = "Post Params: [";
-                        foreach ($_GET as $k => $v)
+                        foreach ($_POST as $k => $v)
                             $PostParams .= $k."=>".$v."; ";
-                        $PostParams .= "]";
+                        $PostParams .= "]; ";
                         $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$GetParams.$PostParams;
                         return $record;
                     });
