@@ -127,7 +127,7 @@ class Router {
     protected static function removeQueryString($url)
     {
         
-        if (strpos($url, "="))
+        if (strpos($url, "=")!==false || strpos($url, "&")!==false)
         {
             if (strpos($url, "&"))
                 return rtrim(explode ('&', $url)[0],'/');
