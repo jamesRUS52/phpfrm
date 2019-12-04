@@ -80,7 +80,12 @@ class Log {
                         $GetParams .= "]; ";
                         $PostParams = "Post Params: [";
                         foreach ($_POST as $k => $v)
-                            $PostParams .= $k."=>".$v."; ";
+                        {
+                            if (is_array($v))
+                                $PostParams .= $k."=>". json_encode($v)."; ";
+                            else
+                                $PostParams .= $k."=>".$v."; ";
+                        }
                         $PostParams .= "]; ";
                         $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$GetParams.$PostParams;
                         
