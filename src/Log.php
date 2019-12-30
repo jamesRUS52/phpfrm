@@ -76,7 +76,12 @@ class Log {
                         $Agent = isset($_SERVER['HTTP_USER_AGENT']) ? "Agent: {$_SERVER['HTTP_USER_AGENT']}; ":"";
                         $GetParams = "Get Params: [";
                         foreach ($_GET as $k => $v)
-                            $GetParams .= $k."=>".$v."; ";
+                        {
+                            if (is_array($v))
+                                $GetParams .= $k."=>". json_encode($v)."; ";
+                            else
+                                $GetParams .= $k."=>".$v."; ";
+                        }
                         $GetParams .= "]; ";
                         $PostParams = "Post Params: [";
                         foreach ($_POST as $k => $v)
@@ -128,11 +133,21 @@ class Log {
                         $Agent = isset($_SERVER['HTTP_USER_AGENT']) ? "Agent: {$_SERVER['HTTP_USER_AGENT']}; ":"";
                         $GetParams = "Get Params: [";
                         foreach ($_GET as $k => $v)
-                            $GetParams .= $k."=>".$v."; ";
+                        {
+                            if (is_array($v))
+                                $GetParams .= $k."=>". json_encode($v)."; ";
+                            else
+                                $GetParams .= $k."=>".$v."; ";
+                        }
                         $GetParams .= "]; ";
                         $PostParams = "Post Params: [";
                         foreach ($_POST as $k => $v)
-                            $PostParams .= $k."=>".$v."; ";
+                        {
+                            if (is_array($v))
+                                $PostParams .= $k."=>". json_encode($v)."; ";
+                            else
+                                $PostParams .= $k."=>".$v."; ";
+                        }
                         $PostParams .= "]; ";
                         $record['extra']['web'] = $server.$URL.$Method.$IP.$Referrer.$Agent.$GetParams.$PostParams;
                         return $record;
