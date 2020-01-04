@@ -33,7 +33,7 @@ class UserTest extends TestCase{
     public function testRoles()
     {
         $user = User::getInstance();
-        $user->setRoles(["admin","superadmin"]);
+        $user->setRoles(array("admin"=>true,"superadmin"=>true));
         
         $superadmin = $user->hasRole("superadmin");
         $this->assertTrue($superadmin);
