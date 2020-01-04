@@ -20,5 +20,13 @@
         "vlucas/phpdotenv":"^3.0",
         "monolog/monolog":"~1.12",
         "swiftmailer/swiftmailer": "^5.3|^6.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "jamesRUS52\\phpfrm\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
     }
 }

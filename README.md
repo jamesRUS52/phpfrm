@@ -1,5 +1,7 @@
 # Mini Web Framework on PHP
 
+![](https://github.com/jamesRUS52/phpfrm/workflows/Tests/badge.svg)
+
 ## How to install
 make a composer.json file in root folder of your app
 ```json
