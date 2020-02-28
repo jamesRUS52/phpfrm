@@ -108,9 +108,11 @@ class Log {
                     // Create the Mailer using your created Transport
                     $mailer = new \Swift_Mailer($transport);
 
+                    $log['to'] = (!is_array($log['to'])) ? array($log['to']) : $log['to'];
+                    
                     $message = (new \Swift_Message($log['subject']))
                                 ->setFrom([$log['from_email'] => $log['from_name']])
-                                ->setTo([$log['to']])
+                                ->setTo($log['to'])
                                 ->setBody('Here is the message itself. It will be replaced');
 
                     $logger->pushHandler(new \Monolog\Handler\SwiftMailerHandler($mailer,$message,$loglevel,TRUE));
