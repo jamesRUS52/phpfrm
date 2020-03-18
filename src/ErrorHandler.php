@@ -141,10 +141,15 @@ class ErrorHandler {
         {
             if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
             {
-                if ($response>=400 && $response<500)
-                    print "HTTP CODE ".$response.": Client error";
-                else if ($response>=500 && $response<600)
-                    print "HTTP CODE ".$response.": Internal server error";
+                if (file_exists(WWW.'/errors/'.$response.'-xhr.php'))
+                    require WWW.'/errors/'.$response.'-xhr.php';
+                else
+                {
+                    if ($response >= 400 && $response < 500)
+                        print "HTTP CODE " . $response . ": Client error";
+                    else if ($response >= 500 && $response < 600)
+                        print "HTTP CODE " . $response . ": Internal server error";
+                }
             }
             else
             {
