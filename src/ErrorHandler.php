@@ -114,6 +114,7 @@ class ErrorHandler {
     {
         if ($this->error_shown !== false) // to prevent double error message exceptionHandler and fatalHandler
             return;
+        ob_clean(); // clean buffer if some data already sended to client before http error header
         $this->error_shown = true;
         
         http_response_code($response);
@@ -141,8 +142,8 @@ class ErrorHandler {
         {
             if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
             {
-                if (file_exists(WWW.'/errors/'.$response.'-xhr.php'))
-                    require WWW.'/errors/'.$response.'-xhr.php';
+                if ($response >= 400 && $response < 500 && file_exists(WWW.'/errors/4xx-xhr.php'))
+                    require WWW.'/errors/4xx-xhr.php';
                 else
                 {
                     if ($response >= 400 && $response < 500)
