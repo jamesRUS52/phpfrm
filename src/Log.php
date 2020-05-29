@@ -59,8 +59,12 @@ class Log {
                     $logger->pushHandler(new StreamHandler(LOGS.'/'.$log['file'], $loglevel));
                     $logger->pushProcessor(function ($record) {
                         $user_vars = [];
-                        foreach (get_object_vars(\jamesRUS52\phpfrm\User::getInstance()) as $prop => $val)
-                            $user_vars[]=$prop.": ".$val;
+                        foreach (get_object_vars(\jamesRUS52\phpfrm\User::getInstance()) as $prop => $val) {
+                            if (!is_array($val))
+                                $user_vars[] = $prop . ": " . $val;
+                            else
+                                $user_vars[] = $prop . ": " . '['. implode(',',$val).']';
+                        }
                         $roles = [];
                         foreach (\jamesRUS52\phpfrm\User::getInstance()->getRoles() as $role => $is)
                             $roles[] = $role."=".($is ? "True": "False");

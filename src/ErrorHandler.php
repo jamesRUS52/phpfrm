@@ -114,7 +114,8 @@ class ErrorHandler {
     {
         if ($this->error_shown !== false) // to prevent double error message exceptionHandler and fatalHandler
             return;
-        ob_clean(); // clean buffer if some data already sended to client before http error header
+        if (!DEBUG)
+            ob_clean(); // clean buffer if some data already sended to client before http error header
         $this->error_shown = true;
         
         http_response_code($response);
@@ -136,6 +137,8 @@ class ErrorHandler {
         }
         if (DEBUG)
         {
+            $trace = debug_backtrace();
+            $trace = $trace[count($trace)-1]['args'];
             require WWW.'/errors/dev.php';
         }
         else

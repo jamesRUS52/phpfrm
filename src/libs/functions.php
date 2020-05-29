@@ -32,6 +32,12 @@ function debug($var,$print_type=TRUE)
     }
 }
 
+function dd($var) {
+    debug($var);
+    ob_end_flush();
+    die();
+}
+
 function getCurrentUrl()
 {
     $http_referer  = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']== "on") ? "https://" : "http://";

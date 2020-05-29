@@ -33,6 +33,7 @@ class User {
     public $lastPage;
     private $auth = false;
     public $id;
+    private $emailLists = [];
 
     public function isAuth()
     {
@@ -114,5 +115,13 @@ class User {
     public function __wakeup() {
         // When session is starting in APP() . it invoke this method to recreate object 
         self::$instance = $_SESSION['user'];
+    }
+
+    public function setEmailLists ($list) {
+        $this->emailLists = $list;
+    }
+
+    public function getEmailLists() {
+        return $this->emailLists;
     }
 }
