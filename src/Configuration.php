@@ -21,21 +21,18 @@ class Configuration {
         if (file_exists(CONF.'/app.env'))
         {
             $dotenv = \Dotenv\Dotenv::createImmutable(CONF,'app.env');
-            
-            $dotenv->load();
-            
             $this->genMembers($dotenv);
         }
     }
 
     public function getParam($parameter)
     {
-        return getenv(strtolower($parameter));
+        return $_ENV[strtolower($parameter)];
     }
     
     public function isParam($parameter)
     {
-        if (empty(getenv(strtolower($parameter))))
+        if (empty($_ENV[strtolower($parameter)]))
             return FALSE;
         else
             return TRUE;
@@ -47,7 +44,8 @@ class Configuration {
      */
     private function genMembers($dotenv)
     {
-        foreach (array_keys($dotenv->load()) as $name )
-            $this->$name = getenv($name);
+        foreach (array_keys($dotenv->load()) as $name) {
+            $this->$name = $_ENV[$name];
+        }
     }
 }
