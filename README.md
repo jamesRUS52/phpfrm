@@ -12,7 +12,7 @@ make a composer.json file in root folder of your app
         }
     },
     "require" : {
-        "james.rus52/phpfrm": "dev-master",
+        "james.rus52/phpfrm": "^1.7",
         "phpmailer/phpmailer": "~6.0",
     }
 }
