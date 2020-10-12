@@ -20,7 +20,7 @@ class Configuration {
     private function __construct() {
         if (file_exists(CONF.'/app.env'))
         {
-            $dotenv = \Dotenv\Dotenv::create(CONF,'app.env');
+            $dotenv = \Dotenv\Dotenv::createImmutable(CONF,'app.env');
             
             $dotenv->load();
             
@@ -47,7 +47,7 @@ class Configuration {
      */
     private function genMembers($dotenv)
     {
-        foreach ($dotenv->getEnvironmentVariableNames() as $name )
+        foreach (array_keys($dotenv->load()) as $name )
             $this->$name = getenv($name);
     }
 }
