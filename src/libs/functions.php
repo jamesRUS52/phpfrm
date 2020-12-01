@@ -32,7 +32,11 @@ function debug($var,$print_type=TRUE)
     }
 }
 
-function dd($var) {
+/**
+ * Debug Dump Die
+ * @param $var
+ */
+function ddd($var) {
     debug($var);
     ob_end_flush();
     die();
