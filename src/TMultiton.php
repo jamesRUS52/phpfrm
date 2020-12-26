@@ -41,7 +41,7 @@ trait TMultiton
     /**
      * prevent instance from being unserialized
      */
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 }
