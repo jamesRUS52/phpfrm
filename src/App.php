@@ -27,20 +27,32 @@ class App {
         
        session_start();
        
-       if (MAINTENANCE)
+       if (MAINTENANCE || GONE)
         {
             $ips = explode(",", MAINTENANCEIP );
             if (!in_array($_SERVER['REMOTE_ADDR'], $ips))
             {
                 if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
                 {
-                    header("HTTP/1.1 503 Service Unavailable");
-                    print "Сервер на обслуживании. Попробуйте обновить страницу чуть позже";
+                    if (MAINTENANCE) {
+                        header("HTTP/1.1 503 Service Unavailable");
+                        print "Сервер на обслуживании. Попробуйте обновить страницу чуть позже";
+                    }
+                    if (GONE) {
+                        header("HTTP/1.1 410 Gone");
+                        print "Сервер переехал на новый адрес ".GONE_URL;
+                    }
                 }
                 else
                 {
-                    http_response_code(503);
-                    require WWW.'/errors/503.php';
+                    if (MAINTENANCE) {
+                        http_response_code(503);
+                        require WWW . '/errors/503.php';
+                    }
+                    if (GONE_URL) {
+                        http_response_code(410);
+                        require WWW . '/errors/410.php';
+                    }
                 }
                 die();
             }

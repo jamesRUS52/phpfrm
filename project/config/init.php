@@ -9,6 +9,8 @@
 define("DEBUG",1);
 define("MAINTENANCE", 0);
 define("MAINTENANCEIP", "172.17.40.1731");
+define("GONE", 0);
+define("GONE_URL", "");
 define("ROOT", dirname(__DIR__));
 define("WWW", ROOT.'/public');
 define("APP", ROOT.'/app');
